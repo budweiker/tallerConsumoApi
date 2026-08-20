@@ -1,4 +1,4 @@
-let d = document;
+const d = document;
 const inputBox = d.querySelector('.searchBar input');
 const searchBtn = d.querySelector('.searchBar button');
 const weatherIcon = d.querySelector('.weatherIcon');
@@ -14,6 +14,24 @@ async function checkWeather(city){
 
     console.log(data);
 }
+
+function updateWeatherUI(data){
+    d.querySelector('.temp').innerHTML = `${Math.round(data.main.temp)}&deg;C`;
+    d.querySelector('.city').innerHTML = data.name;
+    d.querySelector('.humidity').innerHTML = `${data.main.humidity}%`;
+    d.querySelector('.wind').innerHTML = `${data.wind.speed}km/h`;
+
+    const weatherIcons = {
+        clear: 'images/clear.png',
+        snow: 'images/snow.png',
+        rain: 'images/rain.png',
+        clouds: 'images/clouds.png'
+    }
+}
+
+
+
+
 
 searchBtn.addEventListener('click', () => {
     checkWeather(inputBox.value);
