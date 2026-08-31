@@ -1,8 +1,8 @@
 const d = document;
 const inputBox = d.querySelector('.searchBar input');
 const searchBtn = d.querySelector('.searchBar button');
-const weatherIcon = d.querySelector('.weatherIcon');
 const weather = d.querySelector('.weather');
+const weatherIcon = d.querySelector('.weatherIcon');
 const errorMessage = d.querySelector('.error');
 
 async function checkWeather(city){
@@ -13,6 +13,7 @@ async function checkWeather(city){
     const data = await response.json();
 
     console.log(data);
+    updateWeatherUI(data);
 }
 
 function updateWeatherUI(data){
@@ -21,15 +22,23 @@ function updateWeatherUI(data){
     d.querySelector('.humidity').innerHTML = `${data.main.humidity}%`;
     d.querySelector('.wind').innerHTML = `${data.wind.speed}km/h`;
 
+    const weatherMain = data.weather[0].main.toLowerCase();
     const weatherIcons = {
         clear: 'images/clear.png',
         snow: 'images/snow.png',
         rain: 'images/rain.png',
-        clouds: 'images/clouds.png'
+        clouds: 'images/clouds.png',
+        drizzle: 'images/drizzle.png',
+        mist: 'images/clouds.png',
+        thunderstorm: 'images/rain.png'
     }
+
+    weatherIcon.src = weatherIcons[weatherMain] || 'images/clouds.png';
+    weather.style.display = 'block';
+    weatherIcon.style.display = 'block';
+    errorMessage.style.display = 'none';
+    console.log(weatherIcons);
 }
-
-
 
 
 
